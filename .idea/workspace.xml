@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66117196-d2c2-47b3-bcc6-77131feded57" name="Changes" comment="bot">
-      <change afterPath="$PROJECT_DIR$/bot_config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/other_messages.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/picture.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/random_name.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/start.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="66117196-d2c2-47b3-bcc6-77131feded57" name="Changes" comment="bot" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -117,7 +108,7 @@
       <workItem from="1733743159225" duration="1146000" />
       <workItem from="1733759613559" duration="9294000" />
       <workItem from="1733824507538" duration="814000" />
-      <workItem from="1734012892024" duration="697000" />
+      <workItem from="1734012892024" duration="1001000" />
     </task>
     <task id="LOCAL-00001" summary="bot">
       <option name="closed" value="true" />
