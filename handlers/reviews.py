@@ -72,3 +72,5 @@ async def extra_comments(message: types.Message, state: FSMContext):
                          f"Оценка чистоты: {data['cleanliness_rating']}\n"
                          f"Дополнительные комментарии/жалобы: {data['extra_comments']}")
     await state.clear()
+
+

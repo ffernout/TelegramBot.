@@ -13,7 +13,9 @@ async def start_command(message: types.Message):
                 types.InlineKeyboardButton(text="Как с нами связаться: ",
                                            url="https://telegram.нет_ссылки)"),
                 types.InlineKeyboardButton(text="О нас: ", callback_data="about_us")
-
+            ],
+            [
+                types.InlineKeyboardButton(text="Оставить отзыв.", callback_data="review"),
 
             ]
         ]
@@ -24,3 +26,4 @@ async def start_command(message: types.Message):
 @start_router.callback_query(F.data == "about_us")
 async def about_us(callback: types.CallbackQuery):
     await callback.answer("О нас: ")
+
