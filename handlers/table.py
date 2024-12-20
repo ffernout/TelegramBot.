@@ -1,6 +1,7 @@
-from aiogram import Router
+from aiogram import Router, types
 from aiogram.fsm.state import StatesGroup, State
 import sqlite3
+from aiogram.fsm.context import FSMContext
 
 questions_router = Router()
 
@@ -12,10 +13,10 @@ class Questions(StatesGroup):
     extra_comments = State()
 
 
-def create_table():
+def create_tables():
+
     conn = sqlite3.connect('reviews.db')
     cursor = conn.cursor()
-
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS reviews (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,7 +25,7 @@ def create_table():
         food_rating INTEGER NOT NULL,
         cleanliness_rating INTEGER NOT NULL,
         extra_comments TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at DATE DEFAULT (CURRENT_DATE)
     )
     ''')
 
@@ -32,7 +33,7 @@ def create_table():
     conn.close()
 
 
-create_table()
+create_tables()
 
 def save_review(name, phone_number, food_rating, cleanliness_rating, extra_comments):
     conn = sqlite3.connect('reviews.db')
@@ -45,3 +46,19 @@ def save_review(name, phone_number, food_rating, cleanliness_rating, extra_comme
 
     conn.commit()
     conn.close()
+
+async def save_review(message: types.Message, state: FSMContext):
+    extra_comments = message.text
+    await state.update_data(extra_comments=extra_comments)
+
+    data = await state.get_data()
+
+    save_review(
+        name=data['name'],
+        phone_number=data['phone_number'],
+        food_rating=data['food_rating'],
+        cleanliness_rating=data['cleanliness_rating'],
+        extra_comments=data['extra_comments']
+    )
+
+State.clear()

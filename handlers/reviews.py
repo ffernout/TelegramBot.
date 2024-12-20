@@ -6,6 +6,8 @@ from aiogram.fsm.context import FSMContext
 
 questions_router = Router()
 
+user = []
+
 class Questions(StatesGroup):
     name = State()
     phone_number = State()
@@ -62,6 +64,13 @@ async def extra_comments(message: types.Message, state: FSMContext):
     await message.answer("Дополнительные комментарии/жалоба?")
     await state.set_state(Questions.extra_comments)
 
+@questions_router.callback_query_handler(lambda c: c.data == "reviews")
+async def callback_query(callback_query: types.CallbackQuery, state: FSMContext):
+    user_id = callback_query.from_user.id
+    if user_id in user:
+        await callback_query.message.answer("Вы уже оставили комментарий/жалобу.")
+        return
+
 @questions_router.message(Questions.cleanliness_rating)
 async def extra_comments(message: types.Message, state: FSMContext):
     await state.update_data(extra_comments=message.text)
@@ -71,6 +80,8 @@ async def extra_comments(message: types.Message, state: FSMContext):
                          f"Оценка еды: {data['food_rating']}\n"
                          f"Оценка чистоты: {data['cleanliness_rating']}\n"
                          f"Дополнительные комментарии/жалобы: {data['extra_comments']}")
+
+
     await state.clear()
 
 

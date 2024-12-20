@@ -5,6 +5,10 @@ from handlers.start import start_router
 from handlers.picture import picture_router
 from handlers.other_messages import other_echo_handler
 from handlers.reviews import questions_router
+from handlers.admin_module import admin_module
+from handlers.table import table
+
+
 
 async def main():
     dp.include_router(start_router)
