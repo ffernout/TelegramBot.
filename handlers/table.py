@@ -61,4 +61,36 @@ async def save_review(message: types.Message, state: FSMContext):
         extra_comments=data['extra_comments']
     )
 
+
+def create_dishes_table():
+    conn = sqlite3.connect('your_database.db')
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS dishes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            description TEXT,
+            price REAL NOT NULL
+        )
+    ''')
+
+    conn.commit()
+    conn.close()
+
+
+create_dishes_table()
+
+
+async def save_dish(name, description, price):
+    conn = database.connect()
+    cursor = conn.cursor()
+
+    cursor.execute('''
+        INSERT INTO dishes (name, description, price) VALUES (?, ?, ?)
+    ''', (name, description, price))
+
+    conn.commit()
+    conn.close()
+
 State.clear()
