@@ -83,7 +83,7 @@ create_dishes_table()
 
 
 async def save_dish(name, description, price):
-    conn = database.connect()
+    conn = description.connect()
     cursor = conn.cursor()
 
     cursor.execute('''
