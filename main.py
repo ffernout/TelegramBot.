@@ -6,7 +6,6 @@ from handlers.picture import picture_router
 from handlers.other_messages import other_echo_handler
 from handlers.reviews import questions_router
 from handlers.admin_module import admin_module
-from handlers.table import table
 
 
 
@@ -15,8 +14,10 @@ async def main():
     dp.include_router(picture_router)
     dp.include_router(other_echo_handler)
     dp.include_router(questions_router)
+    dp.include_router(admin_module)
     await dp.start_polling(bot)
 
 
 if __name__ == '__main__':
     asyncio.run(main())
+
