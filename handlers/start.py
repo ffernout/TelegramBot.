@@ -27,3 +27,32 @@ async def start_command(message: types.Message):
 async def about_us(callback: types.CallbackQuery):
     await callback.answer("О нас: ")
 
+
+@start_router.message(Command('menu'))
+async def menu_command(message: types.Message):
+    await show_dishes(message)
+
+
+def get_all_dishes():
+    pass
+
+
+async def show_dishes(message: types.Message):
+    dishes = get_all_dishes()
+
+    if not dishes:
+        await message.answer("Извините, блюда не найдены.")
+        return
+
+    dishes_text = ""
+    for dish in dishes:
+        name, description, price, category = dish
+        dishes_text += f"🍽️ <b>{name}</b>\n"
+        dishes_text += f"📝 Описание: {description}\n"
+        dishes_text += f"💲 Цена: {price} руб.\n"
+        dishes_text += f"🍴 Категория: {category}\n\n"
+
+    await message.answer(dishes_text, parse_mode="HTML")
+
+
+

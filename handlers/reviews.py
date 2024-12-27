@@ -22,7 +22,7 @@ async def stop_reviews(message: types.Message, state: FSMContext):
     await state.clear()
     await message.answer("Диалог завершен.")
 
-@questions_router.message(Questions.name, default_state)
+@questions_router.message(Questions.name)
 async def ask_name(message: types.Message, state: FSMContext):
     await message.answer("Как вас зовут?")
     await state.set_state(Questions.phone_number)

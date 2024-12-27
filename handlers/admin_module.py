@@ -2,7 +2,6 @@ from aiogram import types
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 from aiogram import Router
-import sqlite3
 
 admin_module = Router()
 
@@ -13,16 +12,8 @@ class AddingDishes(StatesGroup):
     price = State()
     description = State()
     category = State()
+    image = State()
 
-def save_dish_to_db(name, price, description, category):
-    conn = sqlite3.connect('reviews.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-    INSERT INTO dishes (name, price, description, category)
-    VALUES (?, ?, ?, ?)
-    ''', (name, price, description, category))
-    conn.commit()
-    conn.close()
 
 async def add_dish_start(message: types.Message, state: FSMContext):
     if message.from_user.id != ADMIN_ID:
@@ -75,14 +66,16 @@ async def process_dish_category(message: types.Message, state: FSMContext):
         dish_price = user_data.get('dish_price')
         dish_description = user_data.get('dish_description')
         dish_category = category_map[category]
-
-        save_dish_to_db(dish_name, dish_price, dish_description, dish_category)
+        dish_image = user_data.get('dish_image')
 
         await message.answer(f"Блюдо '{dish_name}' добавлено:\n"
                              f"Цена: {dish_price} руб.\n"
                              f"Описание: {dish_description}\n"
-                             f"Категория: {dish_category}")
+                             f"Категория: {dish_category}\n"
+                             f"Изображение: {dish_image}")
+
         await state.finish()
+        await AddingDishes.image.set()
+        await message.answer("Отправьте изображение блюда.")
     else:
         await message.answer("Неверный выбор категории. Пожалуйста, выберите правильную категорию.")
-

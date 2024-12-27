@@ -26,6 +26,8 @@ def create_tables():
         cleanliness_rating INTEGER NOT NULL,
         extra_comments TEXT,
         created_at DATE DEFAULT (CURRENT_DATE)
+        price REAL NOT NULL,
+        category TEXT NOT NULL
     )
     ''')
 
@@ -35,13 +37,13 @@ def create_tables():
 
 create_tables()
 
-def save_review(name, phone_number, food_rating, cleanliness_rating, extra_comments):
+def save_review(name, phone_number, food_rating, cleanliness_rating, extra_comments, price, category):
     conn = sqlite3.connect('reviews.db')
     cursor = conn.cursor()
 
     cursor.execute('''
     INSERT INTO reviews (name, phone_number, food_rating, cleanliness_rating, extra_comments)
-    VALUES (?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
     ''', (name, phone_number, food_rating, cleanliness_rating, extra_comments))
 
     conn.commit()
@@ -92,5 +94,17 @@ async def save_dish(name, description, price):
 
     conn.commit()
     conn.close()
+
+
+def save_dish_to_db(name, price, description, category):
+    conn = sqlite3.connect('reviews.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+    INSERT INTO dishes (name, price, description, category)
+    VALUES (?, ?, ?, ?)
+    ''', (name, price, description, category))
+    conn.commit()
+    conn.close()
+
 
 State.clear()

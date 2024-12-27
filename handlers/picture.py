@@ -12,3 +12,4 @@ async def picture_handler(message: types.Message):
         photo=photo,
         caption="Наша пиццерия!"
     )
+
