@@ -47,10 +47,10 @@ async def show_dishes(message: types.Message):
     dishes_text = ""
     for dish in dishes:
         name, description, price, category = dish
-        dishes_text += f"🍽️ <b>{name}</b>\n"
-        dishes_text += f"📝 Описание: {description}\n"
-        dishes_text += f"💲 Цена: {price} руб.\n"
-        dishes_text += f"🍴 Категория: {category}\n\n"
+        dishes_text += f" <b>{name}</b>\n"
+        dishes_text += f" Описание: {description}\n"
+        dishes_text += f" Цена: {price} руб.\n"
+        dishes_text += f" Категория: {category}\n\n"
 
     await message.answer(dishes_text, parse_mode="HTML")
 
